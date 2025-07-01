@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from GPT import GPT
 
+
 s = """単語[{inp}]の日本語訳と品詞をどれも日本語で答えよ。
 ただし、指定したフォーマット以外の出力はいらない。
 また、品詞は以下のリストの中に含むもののみ出力せよ。

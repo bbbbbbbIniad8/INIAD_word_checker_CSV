@@ -1,7 +1,13 @@
 import openai
+from dotenv import load_dotenv
+import os
+from pathlib import Path
+
+
+load_dotenv('.env')
 
 client = openai.OpenAI(
-    api_key=,
+    api_key= os.getenv('APIKEY'),
     base_url="https://api.openai.iniad.org/api/v1"
 )
 
