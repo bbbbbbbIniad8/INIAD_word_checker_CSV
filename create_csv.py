@@ -21,13 +21,21 @@ s = """単語[{inp}]の日本語訳と品詞をどれも日本語で答えよ。
 英語;日本語訳;品詞
 """
 
+def file_save(mode,lst,df,csv_in):
+    new_df = pd.DataFrame(lst,columns=["English","Japanese","part"])
+    if len(lst) != 0 and mode == "create": 
+        new_df.to_csv(input("Plz input file name") + "csv")
+    else:
+        df_connect = pd.concat([df, new_df], ignore_index=True)
+        df_connect.to_csv(csv_in + ".csv")
+
 def create_csv():
     global s
     lst = []
     mode = ""
 
     while True:
-        mode = input("Select mode(create|append)")
+        mode = input("Select mode(input [create] or file_name you wanna edit)")
         if mode != "create":
                 try:
                     csv_in = mode
@@ -42,6 +50,10 @@ def create_csv():
             inp = input(":").replace(' ', '')
             if inp == "q":
                 break
+            elif inp == "s":
+                print("Saved file")
+                file_save(mode,lst,df,csv_in)
+                continue
 
             translate = GPT.ResSimple(s.format(inp = inp)).split(";")
             print(f"{translate[0]}:{translate[1]}:{translate[2]}\n")
@@ -56,14 +68,7 @@ def create_csv():
             print(e)
             continue
 
-    
-    if len(lst) != 0 and mode == "create":
-        df = pd.DataFrame(lst,columns=["English","Japanese","part"])
-        df.to_csv(input("Plz input file name") + "csv")
-    else:
-        new_df = pd.DataFrame(lst, columns=["English","Japanese","part"])
-        df_connect = pd.concat([df, new_df], ignore_index=True)
-        df_connect.to_csv(csv_in + ".csv")
+    file_save(mode,lst,df,csv_in)
     
 
 
