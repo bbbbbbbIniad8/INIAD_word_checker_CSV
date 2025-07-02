@@ -3,10 +3,10 @@ import numpy as np
 from GPT import GPT
 
 
-s = """単語[{inp}]の日本語訳と品詞をどれも日本語で答えよ。
+s = """単語[{inp}]の日本語訳(1つ以上)と品詞をどれも日本語で答えよ。
 ただし、指定したフォーマット以外の出力はいらない。
 また、品詞は以下のリストの中に含むもののみ出力せよ。
-なお、入力された英語にスペルミスがある場合、修正してもよい。
+なお、入力された英語にスペルミスがある場合、修正してもよい。改行する必要はない。
 [品詞]
 代名詞
 動詞
@@ -18,8 +18,7 @@ s = """単語[{inp}]の日本語訳と品詞をどれも日本語で答えよ。
 間投詞
 接続詞
 [format]
-英語;日本語訳;品詞
-"""
+英語;日本語訳;品詞"""
 
 def file_save(mode,lst,df,csv_in):
     new_df = pd.DataFrame(lst,columns=["English","Japanese","part"])
@@ -35,7 +34,7 @@ def create_csv():
     mode = ""
 
     while True:
-        mode = input("Select mode(input [create] or file_name you wanna edit)")
+        mode = input("Select mode(input [create] or file_name you wanna edit)\n:")
         if mode != "create":
                 try:
                     csv_in = mode
