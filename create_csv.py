@@ -34,7 +34,7 @@ def create_csv():
     mode = ""
 
     while True:
-        mode = input("Select mode(input [create] or file_name you wanna edit)\n:")
+        mode = input("Plz input file_name you wanna edit(if you wanna new file, input 'create'.\n:")
         if mode != "create":
                 try:
                     csv_in = mode
@@ -50,15 +50,15 @@ def create_csv():
             if inp == "q":
                 break
             elif inp == "s":
-                print("Saved file")
+                print("\nSaved file\n")
                 file_save(mode,lst,df,csv_in)
                 continue
 
             translate = GPT.ResSimple(s.format(inp = inp)).split(";")
             print(f"{translate[0]}:{translate[1]}:{translate[2]}\n")
-            if input("That OK?(y/n)") != "y":
+            if input("That OK?(y/n)\n:") != "y":
                 continue
-            print("Success")
+            print("\nSuccess\n")
             appends = [translate[0], translate[1], translate[2]]
             lst.append(appends)
         except Exception as e:
