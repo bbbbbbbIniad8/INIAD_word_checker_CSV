@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 from GPT import GPT
 
 
@@ -25,8 +24,7 @@ def file_save(mode,lst,df,csv_in):
     if len(lst) != 0 and mode == "create": 
         new_df.to_csv(input("Plz input file name") + "csv")
     else:
-        df_connect = pd.concat([df, new_df], ignore_index=True)
-        df_connect.to_csv(csv_in + ".csv")
+        pd.concat([df, new_df], ignore_index=True).to_csv(csv_in + ".csv")
 
 def create_csv():
     global s
@@ -36,40 +34,32 @@ def create_csv():
     while True:
         mode = input("Plz input file_name you wanna edit(if you wanna new file, input 'create'.\n:")
         if mode != "create":
-                try:
-                    csv_in = mode
-                    df = pd.read_csv(mode+ ".csv", sep = ",", header = 0,index_col=0)
-                    break
-                except:
-                    print("error")
-                    continue
-    while True:     
+            try:
+                csv_in = mode
+                df = pd.read_csv(f"{mode}.csv", sep=",", header=0,index_col=0)
+                break
+            except:
+                print("error")
+                continue
+
+    while True:
         try:
             print("Plz input a word which you wanna add[q->end]")
             inp = input(":").replace(' ', '')
             if inp == "q":
                 break
-            elif inp == "s":
-                print("\nSaved file\n")
-                file_save(mode,lst,df,csv_in)
-                continue
-
-            translate = GPT.ResSimple(s.format(inp = inp)).split(";")
+            translate = GPT.ResSimple(s.format(inp=inp)).split(";")
             print(f"{translate[0]}:{translate[1]}:{translate[2]}\n")
             if input("That OK?(y/n)\n:") != "y":
                 continue
             print("\nSuccess\n")
-            appends = [translate[0], translate[1], translate[2]]
-            lst.append(appends)
+            lst.append(translate)
+            file_save(mode, lst, df, csv_in)
         except Exception as e:
-            print("error")
-            print(translate)
-            print(e)
+            print(f"error:\n{translate}\n:{e}")
             continue
 
-    file_save(mode,lst,df,csv_in)
-    
+    file_save(mode, lst, df, csv_in)
 
 
-
-create_csv()    
+create_csv()
