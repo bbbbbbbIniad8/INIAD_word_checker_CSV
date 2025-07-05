@@ -53,10 +53,10 @@ def create_csv():
             if input("That OK?(y/n)\n:") != "y":
                 continue
             print("\nSuccess\n")
-            lst.append(translate)
+            lst.append(translate[:3])
             file_save(mode, lst, df, csv_in)
         except Exception as e:
-            print(f"error:\n{translate}\n:{e}")
+            print(f"error:\n{translate[:3]}\n:{e}")
             continue
 
     file_save(mode, lst, df, csv_in)
