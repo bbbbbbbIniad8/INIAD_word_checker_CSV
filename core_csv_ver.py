@@ -13,7 +13,7 @@ class EJC:
         self.GPT = GPT(0.1,"") if mode == "英和" else None
 
     def process_csv(self, path, first, second):
-        if second - first <= 0 and not (first == 0 and second == 0):
+        if second - first <= 0 and first >= 0 and second >= 0 and not (first == 0 and second == 0):
             raise ValueError(f"値が不正です。first({first})はsecond({second})以下の値にしてください。")
         
         try:
@@ -23,12 +23,10 @@ class EJC:
             exit()
 
         if first == 0 and second == 0:
-            ENLst = df["English"]
-            JLst = df["Japanese"]
+            ENLst, JLst = df["English"], df["Japanese"]
         else:
             try:
-                ENLst = df.loc[first:second, "English"]
-                JLst = df.loc[first:second, "Japanese"]
+                ENLst, JLst = df.loc[first:second, "English"], df.loc[first:second, "Japanese"]
             except KeyError:
                 print(f"エラー: 指定された範囲({first}～{second})がCSVファイルの範囲外か、列名が正しくありません。")
                 exit()
@@ -47,7 +45,7 @@ class EJC:
             elif (answer.strip() == JP or self.AIjudge == "YES") and self.mode == "英和":
                 print(f"正解!!\n{self.line}\n")
             else:
-                A = A = EN if self.mode == "和英" else JP
+                A = EN if self.mode == "和英" else JP
                 peke  = ""
                 for i in range(len(A)):
                     try:
