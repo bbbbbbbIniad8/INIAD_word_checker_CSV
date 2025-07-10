@@ -21,7 +21,7 @@ s = """単語[{inp}]の日本語訳(1つ以上)と品詞をどれも日本語で
 
 def file_save(mode,lst,df,csv_in):
     new_df = pd.DataFrame(lst,columns=["English","Japanese","part"])
-    if len(lst) != 0 and mode == "create": 
+    if len(lst) > 0 and mode == "create": 
         new_df.to_csv(input("Plz input file name") + "csv")
     else:
         pd.concat([df, new_df], ignore_index=True).to_csv(csv_in + ".csv")
