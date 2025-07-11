@@ -32,7 +32,7 @@ def create_csv():
     mode = ""
 
     while True:
-        mode = input("Plz input file_name you wanna edit(if you wanna new file, input 'create'.\n:")
+        mode = input("Plz input file_name you wanna edit(if you wanna new file,insted of inputing 'create'.\n:")
         if mode != "create":
             try:
                 csv_in = mode
@@ -44,7 +44,7 @@ def create_csv():
 
     while True:
         try:
-            print("Plz input a word which you wanna add[q->end]")
+            print("Plz input a word you wanna add[q->end]")
             inp = input(":").replace(' ', '')
             if inp == "q":
                 break
